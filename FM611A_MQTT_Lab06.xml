@@ -1,0 +1,234 @@
+<xml xmlns="http://www.w3.org/1999/xhtml">
+  <block type="arduino_setup" id="Z4!88@-j#EQ+:Y=VI:F?" x="0" y="0">
+    <statement name="SETUP_FUNC">
+      <block type="serial_setup" id="]CH!OJ(td1+92S}9(:N(">
+        <field name="SERIAL_ID">Serial</field>
+        <field name="SPEED">115200</field>
+        <next>
+          <block type="io_digitalwrite_var" id="~I.-(G`{j{^rvwlIb.;r">
+            <value name="PIN">
+              <block type="io_allpins" id="BKyQVs]WISC:HA%`mW(4">
+                <field name="PIN">D5</field>
+              </block>
+            </value>
+            <value name="STATE">
+              <block type="io_highlow" id="A74GgcIyL|%zZ4zwc{2~">
+                <field name="STATE">LOW</field>
+              </block>
+            </value>
+            <next>
+              <block type="io_digitalwrite_var" id="+i5;X/*P0+u3hmUc(4P;">
+                <value name="PIN">
+                  <block type="io_allpins" id="6roZ;5Ij=Ns@G@R}{tk2">
+                    <field name="PIN">D4</field>
+                  </block>
+                </value>
+                <value name="STATE">
+                  <block type="io_highlow" id="^OgW2pcTnk`EGc(WQpj-">
+                    <field name="STATE">HIGH</field>
+                  </block>
+                </value>
+                <next>
+                  <block type="esp8266_sta_setup" id="{-1+(?6CM_FIqaRa}A?|">
+                    <value name="SSID">
+                      <block type="text" id="6wl-rdz~}#PG6YMJ+I.B">
+                        <field name="TEXT">FLAG-SCHOOL</field>
+                      </block>
+                    </value>
+                    <value name="PINCODE">
+                      <block type="text" id="Cp|C4!~x,.eCNrHfnnP}">
+                        <field name="TEXT">12345678</field>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="controls_whileUntil" id="SIOQyxx=[.,TY3hOOrsu">
+                        <field name="MODE">WHILE</field>
+                        <value name="BOOL">
+                          <block type="logic_negate" id="rqLAhGA@n5BztQNXgV,q">
+                            <value name="BOOL">
+                              <block type="esp8266_connected" id="RfgTR(ut`|@4-Uvd-DTu"></block>
+                            </value>
+                          </block>
+                        </value>
+                        <statement name="DO">
+                          <block type="serial_print" id="6j^#;[{bn+bW8x.Yj{w*">
+                            <field name="SERIAL_ID">Serial</field>
+                            <field name="NEW_LINE">TRUE</field>
+                            <value name="CONTENT">
+                              <block type="text" id="u6P7.|fBdKpI]xz-ROO!">
+                                <field name="TEXT">尚未連上無線網路</field>
+                              </block>
+                            </value>
+                            <next>
+                              <block type="time_delay" id="{!Z9.x3LE~Q6e4t9|Dz!">
+                                <value name="DELAY_TIME_MILI">
+                                  <block type="math_number" id="fx4m-IDLy6BaKzn{%*6?">
+                                    <field name="NUM">1000</field>
+                                  </block>
+                                </value>
+                              </block>
+                            </next>
+                          </block>
+                        </statement>
+                        <next>
+                          <block type="io_digitalwrite_var" id="4u~mY9f9^42[15P|a0Tg">
+                            <value name="PIN">
+                              <block type="io_allpins" id="|EVM1(%pSxeh`ylR:e`w">
+                                <field name="PIN">D4</field>
+                              </block>
+                            </value>
+                            <value name="STATE">
+                              <block type="io_highlow" id="q5E7laqmmcn-I[!C,~,j">
+                                <field name="STATE">LOW</field>
+                              </block>
+                            </value>
+                            <next>
+                              <block type="mqtt_setup" id="KV-t%aiaWzj6Hox=|^l9">
+                                <field name="PORT">1883</field>
+                                <value name="SERVER">
+                                  <block type="text" id="3AO#J=#A!-9Wh;mCrx=M">
+                                    <field name="TEXT">io.adafruit.com</field>
+                                  </block>
+                                </value>
+                                <next>
+                                  <block type="mqtt_bind" id="L~(TqKx#^--*C4aD.oj5">
+                                    <field name="FUNCNAME">取得遠端指令</field>
+                                  </block>
+                                </next>
+                              </block>
+                            </next>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+  <block type="arduino_loop" id="EAg)g_/#Sgta~QPPg4@7" deletable="false" x="0" y="416">
+    <statement name="LOOP_FUNC">
+      <block type="controls_whileUntil" id="mslSj`37IGrlLKGu-PoI">
+        <field name="MODE">WHILE</field>
+        <value name="BOOL">
+          <block type="logic_negate" id="lF5I_)FQ@@EV9c,,iZ+n">
+            <value name="BOOL">
+              <block type="mqtt_connected" id="W?p9HcS)-LTJ^nh^KO~("></block>
+            </value>
+          </block>
+        </value>
+        <statement name="DO">
+          <block type="controls_if" id="{#7T2jhzYhd:V!qdJ_z]">
+            <mutation else="1"></mutation>
+            <value name="IF0">
+              <block type="mqtt_connect" id="*/O;4,bavXs|{gh~]fOH" inline="false">
+                <value name="NAME">
+                  <block type="text" id="475h1LI~k|SqiG!@Yqhh">
+                    <field name="TEXT"></field>
+                  </block>
+                </value>
+                <value name="ID">
+                  <block type="text" id="4H47:n|uUw|9PQPu8V(z">
+                    <field name="TEXT">meeboxflag</field>
+                  </block>
+                </value>
+                <value name="PWD">
+                  <block type="text" id="~cxS?k[nfEW*XWeu^4BM">
+                    <field name="TEXT">aio_JcEE78W9N93Ivk6LEoRw7fAEEYNx</field>
+                  </block>
+                </value>
+              </block>
+            </value>
+            <statement name="DO0">
+              <block type="mqtt_subscribe" id="jP7.PFp.6nltcLQFosRH">
+                <value name="CHANNEL">
+                  <block type="text" id="{k2?zQBATvlza.Nv*Ne2">
+                    <field name="TEXT">meeboxflag/feeds/voice</field>
+                  </block>
+                </value>
+              </block>
+            </statement>
+            <statement name="ELSE">
+              <block type="time_delay" id="DQwHHY1^;gnNy(aaG/@1">
+                <value name="DELAY_TIME_MILI">
+                  <block type="math_number" id="`4.%9=0F@KNAr9eTguHG">
+                    <field name="NUM">1000</field>
+                  </block>
+                </value>
+              </block>
+            </statement>
+          </block>
+        </statement>
+        <next>
+          <block type="mqtt_run" id=")q|j/]]3W.WwXO0MpQTR"></block>
+        </next>
+      </block>
+    </statement>
+  </block>
+  <block type="procedures_defnoreturn" id="OvmXJ}YE5jge]7K8ZnN%" x="0" y="751">
+    <field name="NAME">取得遠端指令</field>
+    <statement name="STACK">
+      <block type="controls_if" id="_SS_acb92[ZbM(zSR6cb">
+        <mutation elseif="1"></mutation>
+        <value name="IF0">
+          <block type="logic_compare" id="(,C2+h%yqha!7hWvBm;2">
+            <field name="OP">EQ</field>
+            <value name="A">
+              <block type="mqtt_msg" id="5hfc^NAHK63|}n+@AI1`"></block>
+            </value>
+            <value name="B">
+              <block type="text" id="U9[%EgQr41,FzNrFzhpD">
+                <field name="TEXT">100</field>
+              </block>
+            </value>
+          </block>
+        </value>
+        <statement name="DO0">
+          <block type="io_digitalwrite_var" id="kvRR,d-O8@}PEgo?e4(Z">
+            <value name="PIN">
+              <block type="io_allpins" id=")6}nL_D!k6u2*ST_%w^q">
+                <field name="PIN">D5</field>
+              </block>
+            </value>
+            <value name="STATE">
+              <block type="io_highlow" id="NvER0rUjI,J6yyLc[{tg">
+                <field name="STATE">LOW</field>
+              </block>
+            </value>
+          </block>
+        </statement>
+        <value name="IF1">
+          <block type="logic_compare" id="==ki+TMX08+kQ}{/H3ry">
+            <field name="OP">EQ</field>
+            <value name="A">
+              <block type="mqtt_msg" id="F!J%eDNxDSC#e-eU{mz7"></block>
+            </value>
+            <value name="B">
+              <block type="text" id="U^y_Q(7@5)+7mQQk6ZS^">
+                <field name="TEXT">0</field>
+              </block>
+            </value>
+          </block>
+        </value>
+        <statement name="DO1">
+          <block type="io_digitalwrite_var" id="/N%8iuU0ngmVCn|Ij@Y9">
+            <value name="PIN">
+              <block type="io_allpins" id="|cEiSp73||)Fe@P8vzkH">
+                <field name="PIN">D5</field>
+              </block>
+            </value>
+            <value name="STATE">
+              <block type="io_highlow" id="Xmku]gej7v@RxU9RRu)!">
+                <field name="STATE">HIGH</field>
+              </block>
+            </value>
+          </block>
+        </statement>
+      </block>
+    </statement>
+  </block>
+</xml>
