@@ -32,12 +32,12 @@
                   <block type="esp8266_sta_setup" id="{-1+(?6CM_FIqaRa}A?|">
                     <value name="SSID">
                       <block type="text" id="6wl-rdz~}#PG6YMJ+I.B">
-                        <field name="TEXT">FLAG-SCHOOL</field>
+                        <field name="TEXT">你的無線網路名稱</field>
                       </block>
                     </value>
                     <value name="PINCODE">
                       <block type="text" id="Cp|C4!~x,.eCNrHfnnP}">
-                        <field name="TEXT">12345678</field>
+                        <field name="TEXT">你的無線網路密碼</field>
                       </block>
                     </value>
                     <next>
@@ -133,12 +133,12 @@
                 </value>
                 <value name="ID">
                   <block type="text" id="4H47:n|uUw|9PQPu8V(z">
-                    <field name="TEXT">meeboxflag</field>
+                    <field name="TEXT">你的 AIO 使用者名稱</field>
                   </block>
                 </value>
                 <value name="PWD">
                   <block type="text" id="~cxS?k[nfEW*XWeu^4BM">
-                    <field name="TEXT">aio_JcEE78W9N93Ivk6LEoRw7fAEEYNx</field>
+                    <field name="TEXT">你的 AIO 金鑰</field>
                   </block>
                 </value>
               </block>
@@ -147,7 +147,7 @@
               <block type="mqtt_subscribe" id="jP7.PFp.6nltcLQFosRH">
                 <value name="CHANNEL">
                   <block type="text" id="{k2?zQBATvlza.Nv*Ne2">
-                    <field name="TEXT">meeboxflag/feeds/voice</field>
+                    <field name="TEXT">你的 AIO 使用者名稱/feeds/voice</field>
                   </block>
                 </value>
               </block>

@@ -1,0 +1,223 @@
+<xml xmlns="http://www.w3.org/1999/xhtml">
+  <block type="arduino_setup" id="Z4!88@-j#EQ+:Y=VI:F?" x="0" y="0">
+    <statement name="SETUP_FUNC">
+      <block type="servo_use" id="Zu-m,H=Z(=h6=Yj_a,Qf">
+        <field name="OBJNAME">大門</field>
+        <field name="PIN">D6</field>
+        <next>
+          <block type="servo_put" id="CAHgxCcT%W??zVS3R,V.">
+            <field name="OBJNAME">大門</field>
+            <value name="SERVO_ANGLE">
+              <block type="math_number" id="!n)80hgt3=4RFPMITn[u">
+                <field name="NUM">0</field>
+              </block>
+            </value>
+            <next>
+              <block type="serial_setup" id="]CH!OJ(td1+92S}9(:N(">
+                <field name="SERIAL_ID">Serial</field>
+                <field name="SPEED">115200</field>
+                <next>
+                  <block type="io_digitalwrite_var" id="+i5;X/*P0+u3hmUc(4P;">
+                    <value name="PIN">
+                      <block type="io_allpins" id="6roZ;5Ij=Ns@G@R}{tk2">
+                        <field name="PIN">D4</field>
+                      </block>
+                    </value>
+                    <value name="STATE">
+                      <block type="io_highlow" id="^OgW2pcTnk`EGc(WQpj-">
+                        <field name="STATE">HIGH</field>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="esp8266_sta_setup" id="{-1+(?6CM_FIqaRa}A?|">
+                        <value name="SSID">
+                          <block type="text" id="6wl-rdz~}#PG6YMJ+I.B">
+                            <field name="TEXT">你的無線網路名稱</field>
+                          </block>
+                        </value>
+                        <value name="PINCODE">
+                          <block type="text" id="Cp|C4!~x,.eCNrHfnnP}">
+                            <field name="TEXT">你的無線網路密碼</field>
+                          </block>
+                        </value>
+                        <next>
+                          <block type="controls_whileUntil" id="SIOQyxx=[.,TY3hOOrsu">
+                            <field name="MODE">WHILE</field>
+                            <value name="BOOL">
+                              <block type="logic_negate" id="rqLAhGA@n5BztQNXgV,q">
+                                <value name="BOOL">
+                                  <block type="esp8266_connected" id="RfgTR(ut`|@4-Uvd-DTu"></block>
+                                </value>
+                              </block>
+                            </value>
+                            <statement name="DO">
+                              <block type="serial_print" id="6j^#;[{bn+bW8x.Yj{w*">
+                                <field name="SERIAL_ID">Serial</field>
+                                <field name="NEW_LINE">TRUE</field>
+                                <value name="CONTENT">
+                                  <block type="text" id="u6P7.|fBdKpI]xz-ROO!">
+                                    <field name="TEXT">尚未連上無線網路</field>
+                                  </block>
+                                </value>
+                                <next>
+                                  <block type="time_delay" id="{!Z9.x3LE~Q6e4t9|Dz!">
+                                    <value name="DELAY_TIME_MILI">
+                                      <block type="math_number" id="fx4m-IDLy6BaKzn{%*6?">
+                                        <field name="NUM">1000</field>
+                                      </block>
+                                    </value>
+                                  </block>
+                                </next>
+                              </block>
+                            </statement>
+                            <next>
+                              <block type="io_digitalwrite_var" id="4u~mY9f9^42[15P|a0Tg">
+                                <value name="PIN">
+                                  <block type="io_allpins" id="|EVM1(%pSxeh`ylR:e`w">
+                                    <field name="PIN">D4</field>
+                                  </block>
+                                </value>
+                                <value name="STATE">
+                                  <block type="io_highlow" id="q5E7laqmmcn-I[!C,~,j">
+                                    <field name="STATE">LOW</field>
+                                  </block>
+                                </value>
+                                <next>
+                                  <block type="mqtt_setup" id="KV-t%aiaWzj6Hox=|^l9">
+                                    <field name="PORT">1883</field>
+                                    <value name="SERVER">
+                                      <block type="text" id="3AO#J=#A!-9Wh;mCrx=M">
+                                        <field name="TEXT">io.adafruit.com</field>
+                                      </block>
+                                    </value>
+                                    <next>
+                                      <block type="mqtt_bind" id="L~(TqKx#^--*C4aD.oj5">
+                                        <field name="FUNCNAME">取得遠端指令</field>
+                                      </block>
+                                    </next>
+                                  </block>
+                                </next>
+                              </block>
+                            </next>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+  <block type="arduino_loop" id="EAg)g_/#Sgta~QPPg4@7" deletable="false" x="0" y="442">
+    <statement name="LOOP_FUNC">
+      <block type="controls_whileUntil" id="mslSj`37IGrlLKGu-PoI">
+        <field name="MODE">WHILE</field>
+        <value name="BOOL">
+          <block type="logic_negate" id="lF5I_)FQ@@EV9c,,iZ+n">
+            <value name="BOOL">
+              <block type="mqtt_connected" id="W?p9HcS)-LTJ^nh^KO~("></block>
+            </value>
+          </block>
+        </value>
+        <statement name="DO">
+          <block type="controls_if" id="{#7T2jhzYhd:V!qdJ_z]">
+            <mutation else="1"></mutation>
+            <value name="IF0">
+              <block type="mqtt_connect" id="*/O;4,bavXs|{gh~]fOH" inline="false">
+                <value name="NAME">
+                  <block type="text" id="475h1LI~k|SqiG!@Yqhh">
+                    <field name="TEXT"></field>
+                  </block>
+                </value>
+                <value name="ID">
+                  <block type="text" id="4H47:n|uUw|9PQPu8V(z">
+                    <field name="TEXT">你的 AIO 使用這名稱</field>
+                  </block>
+                </value>
+                <value name="PWD">
+                  <block type="text" id="~cxS?k[nfEW*XWeu^4BM">
+                    <field name="TEXT">你的 AIO 金鑰</field>
+                  </block>
+                </value>
+              </block>
+            </value>
+            <statement name="DO0">
+              <block type="mqtt_subscribe" id="jP7.PFp.6nltcLQFosRH">
+                <value name="CHANNEL">
+                  <block type="text" id="{k2?zQBATvlza.Nv*Ne2">
+                    <field name="TEXT">你的 AIO 使用者名稱/feeds/face</field>
+                  </block>
+                </value>
+              </block>
+            </statement>
+            <statement name="ELSE">
+              <block type="time_delay" id="DQwHHY1^;gnNy(aaG/@1">
+                <value name="DELAY_TIME_MILI">
+                  <block type="math_number" id="`4.%9=0F@KNAr9eTguHG">
+                    <field name="NUM">1000</field>
+                  </block>
+                </value>
+              </block>
+            </statement>
+          </block>
+        </statement>
+        <next>
+          <block type="mqtt_run" id=")q|j/]]3W.WwXO0MpQTR"></block>
+        </next>
+      </block>
+    </statement>
+  </block>
+  <block type="procedures_defnoreturn" id="OvmXJ}YE5jge]7K8ZnN%" x="0" y="777">
+    <field name="NAME">取得遠端指令</field>
+    <statement name="STACK">
+      <block type="controls_if" id="_SS_acb92[ZbM(zSR6cb">
+        <value name="IF0">
+          <block type="logic_compare" id="(,C2+h%yqha!7hWvBm;2">
+            <field name="OP">EQ</field>
+            <value name="A">
+              <block type="mqtt_msg" id="5hfc^NAHK63|}n+@AI1`"></block>
+            </value>
+            <value name="B">
+              <block type="text" id="U9[%EgQr41,FzNrFzhpD">
+                <field name="TEXT">100</field>
+              </block>
+            </value>
+          </block>
+        </value>
+        <statement name="DO0">
+          <block type="servo_put" id="cR.~?)+5T@ipdBxZD-7S">
+            <field name="OBJNAME">大門</field>
+            <value name="SERVO_ANGLE">
+              <block type="math_number" id="xjn@UB4r_#E2f@L+91wa">
+                <field name="NUM">90</field>
+              </block>
+            </value>
+            <next>
+              <block type="time_delay" id="LRymN1K}FO;Bz_BIvlu}">
+                <value name="DELAY_TIME_MILI">
+                  <block type="math_number" id="=H`~,ndKakMY+h;7-U5o">
+                    <field name="NUM">10000</field>
+                  </block>
+                </value>
+                <next>
+                  <block type="servo_put" id="Wx3x2N:!Fo~_`cC#unB[">
+                    <field name="OBJNAME">大門</field>
+                    <value name="SERVO_ANGLE">
+                      <block type="math_number" id=",G:mRL_Oe?{H(LYQDy.C">
+                        <field name="NUM">0</field>
+                      </block>
+                    </value>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </statement>
+      </block>
+    </statement>
+  </block>
+</xml>
