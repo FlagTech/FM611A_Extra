@@ -1,6 +1,6 @@
-var aio_n = "meebox";
-var aio_k = "aio_TKLo32iTEHuc1hVfBxcWrbjPF1W2";
-var line_t = "wjeW1fI/Oms3WnsuqOZbGRbI51mjZlUkZYPGCGPvrV99sP7V3G+lCPgHPJW+0y3ZAgZpPST+y28U+Jjs4z+Qx43t1G8eGI46IEKWXAHnGFP3uIcVfOgsPcORCSzw/seQ3ddVazuqKL06yeXuP/Y5QgdB04t89/1O/w1cDnyilFU=";
+var aio_n = "AIO 使用者名稱";
+var aio_k = "AIO_金鑰";
+var line_t = "LINE 機器人存取權杖";
 
 var keyWords = {
   '打開': 100,
