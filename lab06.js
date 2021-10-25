@@ -2,6 +2,8 @@ var aio_n = "AIO 使用者名稱";
 var aio_k = "AIO_金鑰";
 var line_t = "LINE 機器人存取權杖";
 
+var aio_d = 'face';
+
 var keyWords = {
   '打開': 100,
   '開燈': 100,
@@ -10,7 +12,7 @@ var keyWords = {
 };
 
 function postToAIO(v) {
-  var url = 'https://io.adafruit.com/api/v2/' + aio_n + '/feeds/face/data';
+  var url = 'https://io.adafruit.com/api/v2/' + aio_n + '/feeds/' + aio_d +'/data';
   response = UrlFetchApp.fetch(url, {
     'headers': {
       'Content-Type': 'application/json; charset=UTF-8',
