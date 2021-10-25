@@ -7,3 +7,8 @@
 ## FM611A_MQTT_Lab07.xml
 
 這是 Lab07 刷臉智慧門鎖的 MQTT 版, 鑑於原本的實驗會受限於區域網路, 所以我們另外實作了 MQTT 版本, 你可以在這裡閱讀[教學文件](https://hackmd.io/@flagmaker/HkrscklIY), 跟著一步步實作。
+
+
+## lab06.js
+
+這是將 Lab06 改成用 LINE 聊天機器人控制的 Google App Script 程式, 可以在這裡閱讀[教學文件](https://hackmd.io/@flagmaker/SyL6sFmIF), 跟著一步步實作。
