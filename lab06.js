@@ -2,7 +2,7 @@ var aio_n = "AIO 使用者名稱";
 var aio_k = "AIO_金鑰";
 var line_t = "LINE 機器人存取權杖";
 
-var aio_d = 'face';
+var aio_d = 'voice';
 
 var keyWords = {
   '打開': 100,
